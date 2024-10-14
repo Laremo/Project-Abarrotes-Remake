@@ -2,16 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Beans;
+package java.Beans;
 
-import Hibernate.HibernateUtil;
-import Mapeos.Cliente;
-import Mapeos.Empleado;
+import java.Hibernate.HibernateUtil;
+import java.Mapeos.Cliente;
+import java.Mapeos.Empleado;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 /**
  *
  * @author Search
@@ -20,7 +19,7 @@ public class ClienteDAO {
     private Session sesion;
     private Transaction tx;
 
-    public int guardarCliente(Mapeos.Cliente cliente) throws HibernateException {
+    public int guardarCliente(java.Mapeos.Cliente cliente) throws HibernateException {
         int id = -1;
         try {
             iniciaOperacion();
@@ -74,7 +73,7 @@ public class ClienteDAO {
         return listaClientes;
     }
 
-    public int actualizaCliente(Mapeos.Cliente carrito) throws HibernateException {
+    public int actualizaCliente(java.Mapeos.Cliente carrito) throws HibernateException {
         try {
             iniciaOperacion();
             sesion.update(carrito);

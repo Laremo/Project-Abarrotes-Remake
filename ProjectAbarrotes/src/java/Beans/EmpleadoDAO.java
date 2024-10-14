@@ -1,23 +1,23 @@
 
-package Beans;
+package java.Beans;
 
 /**
  *
  * @author Search
  */
-import Hibernate.HibernateUtil;
+import java.Hibernate.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import Mapeos.Empleado;
+import java.Mapeos.Empleado;
 
 public class EmpleadoDAO {
 
     private Session sesion;
     private Transaction tx;
 
-    public int guardaEmpleado(Mapeos.Empleado empleado) throws HibernateException {
+    public int guardaEmpleado(java.Mapeos.Empleado empleado) throws HibernateException {
         int id = -1;
 
         try {

@@ -12,8 +12,33 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Sergio/Documents/NetBeansProjects/PRINCIPAL/ProjectAbarrotes/web/registro.jsp</file>
-            <file>file:/C:/Users/Sergio/Documents/NetBeansProjects/PRINCIPAL/ProjectAbarrotes/web/Principal.html</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Beans/EmpleadoDAO.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Mapeos/Estado.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Beans/ProductoDAO.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Mapeos/Producto.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Mapeos/Cliente.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Mapeos/Inventario.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Beans/servletAjax.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Hibernate/HibernateUtil.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/build.xml</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Mapeos/Pedido.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Mapeos/Empresa.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/build/classes/java/Hibernate/HibernateUtil.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Beans/Reflection.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/web/WEB-INF/glassfish-web.xml</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Mapeos/Cliente.hbm.xml</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Beans/UsuarioDAO.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Mapeos/Paquete.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/build/classes/conf/MANIFEST.MF</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Beans/ClienteDAO.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/build/classes/verveinej.bat</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Mapeos/Pedido.hbm.xml</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/hibernate.cfg.xml</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/Mapeos/Empleado.java</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/web/META-INF/context.xml</file>
+            <file>file:/C:/Users/sebas/repos/Project-Abarrotes-Remake/ProjectAbarrotes/src/java/hibernate.reveng.xml</file>
         </group>
     </open-files>
 </project-private>

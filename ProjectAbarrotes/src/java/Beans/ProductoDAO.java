@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Beans;
+package java.Beans;
 
-import Hibernate.HibernateUtil;
-import Mapeos.Producto;
+import java.Hibernate.HibernateUtil;
+import java.Mapeos.Producto;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -20,7 +20,7 @@ public class ProductoDAO {
       private Session sesion;
     private Transaction tx;
 
-    public int guardaProducto(Mapeos.Producto producto) throws HibernateException {
+    public int guardaProducto(java.Mapeos.Producto producto) throws HibernateException {
         int id = -1;
 
         try {
@@ -75,7 +75,7 @@ public class ProductoDAO {
         return listaProductos;
     }
 
-    public int actualizaProducto(Mapeos.Producto producto) throws HibernateException {
+    public int actualizaProducto(java.Mapeos.Producto producto) throws HibernateException {
         try {
             iniciaOperacion();
             sesion.update(producto);
