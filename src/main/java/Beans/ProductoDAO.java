@@ -65,16 +65,19 @@ public class ProductoDAO {
 
     public List<Producto> obtenListaProducto() throws HibernateException {
         List<Producto> listaProductos = null;
-
         try {
-            iniciaOperacion();
+            iniciaOperacion();  // Inicia la sesión de Hibernate
             listaProductos = sesion.createQuery("from Producto").list();
+            tx.commit();  // Confirma la transacción
+        } catch (HibernateException he) {
+            manejaExcepcion(he);  // Manejo de errores
         } finally {
-            sesion.close();
+            if (sesion != null) {
+                sesion.close();  // Asegúrate de cerrar la sesión
+            }
         }
         return listaProductos;
     }
-
     public int actualizaProducto(Mapeos.Producto producto) throws HibernateException {
         try {
             iniciaOperacion();

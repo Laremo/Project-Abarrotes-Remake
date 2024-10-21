@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 5.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-5.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+    <property name="hibernate.connection.url">jdbc:sqlite:C:/Users/sebas/Repos/abarrotes.db</property>
+    <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property> <!-- Asegúrate de que esté correcto -->
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.show_sql">true</property>
+    
+    <!-- Mappings de tus entidades -->
+    <mapping resource="Mapeos/Empleado.hbm.xml"/>
+    <mapping resource="Mapeos/Producto.hbm.xml"/>
+    <mapping resource="Mapeos/Empresa.hbm.xml"/>
+    <mapping resource="Mapeos/Cliente.hbm.xml"/>
+    <mapping resource="Mapeos/Paquete.hbm.xml"/>
+    <mapping resource="Mapeos/Proveedor.hbm.xml"/>
+    <mapping resource="Mapeos/Pedido.hbm.xml"/>
+    <mapping resource="Mapeos/Inventario.hbm.xml"/>
+    <mapping resource="Mapeos/Estado.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>
