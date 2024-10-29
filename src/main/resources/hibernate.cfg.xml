@@ -3,7 +3,7 @@
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
-    <property name="hibernate.connection.url">jdbc:sqlite:C:/Users/sebas/Repos/abarrotes.db</property>
+    <property name="hibernate.connection.url">jdbc:sqlite:C:/Users/sebas/repos/Project-Abarrotes-Remake/SQLite3DB/abarrotes.db</property>
     <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property> <!-- Asegúrate de que esté correcto -->
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.show_sql">true</property>

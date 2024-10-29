@@ -92,13 +92,13 @@
                     </tr>
                     <tr>
                         <td>
-                            <input id="PProveedor" name="pproveedor" placeholder="Precio Proveedor"
+                            <input id="PProveedor" name="precioProv" placeholder="Precio Proveedor"
                                    title="PrecioProveedor" type="text" value="<%= listaProductos.get(i - 1).getPrecioProv()%>" size="25"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input id="PUnitario" name="punitario" placeholder="Precio Unitario"
+                            <input id="PUnitario" name="precioUni" placeholder="Precio Unitario"
                                    title="PrecioUnitario" type="text" value="<%= listaProductos.get(i - 1).getPrecioUni()%>" size="25"/>
                         </td>
                     </tr>

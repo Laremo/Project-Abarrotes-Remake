@@ -1,6 +1,4 @@
-
 package Beans;
-
 /**
  *
  * @author Search
@@ -56,8 +54,11 @@ public class EmpleadoDAO {
         } finally {
             sesion.close();
         }
+        
         return empleado;
     }
+    
+    
 
     public List<Empleado> obtenListaEmpleado() throws HibernateException {
         List<Empleado> listaEmpleados = null;
