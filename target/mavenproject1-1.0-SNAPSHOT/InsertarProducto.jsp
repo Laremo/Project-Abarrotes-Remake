@@ -72,12 +72,12 @@
                     alert("*Indica Caducidad");
                     //return false; 
                 }
-                valor4 = document.getElementById("PProveedor").value;
+                valor4 = document.getElementById("PrecioProv").value;
                 if (isNaN(valor4)) {
                     alert("*Indica Precio del Proveedor");
                     //return false; 
                 }
-                valor5 = document.getElementById("PUnitario").value;
+                valor5 = document.getElementById("PrecioUni").value;
                 if (isNaN(valor5)) {
                     alert("*Indica Precio Unitario");
                     //return false; 
@@ -141,14 +141,14 @@
                     </tr>
                     <tr>
                         <td>
-                            <input id="PProveedor" name="pproveedor" placeholder="Precio Proveedor"
+                            <input id="PrecioProv" name="precioProv" placeholder="Precio Proveedor"
                                    title="PrecioProveedor" type="text" value="" size="25"
                                    onkeypress="return permite(event, 'num')"/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input id="PUnitario" name="punitario" placeholder="Precio Unitario"
+                            <input id="PrecioUni" name="precioUni" placeholder="Precio Unitario"
                                    title="Precio Unitario" type="text" value="" size="25"
                                    onkeypress="return permite(event, 'num')"/>
                         </td>
