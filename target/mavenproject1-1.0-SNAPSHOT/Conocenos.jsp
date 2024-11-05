@@ -32,5 +32,5 @@
         <img src="abarrotes.png" align="center"/><br>
 
     </body>
-    <a href="Principal.html">Pagina Principal</a>
+    <a href="index.html">Pagina Principal</a>
 </html>

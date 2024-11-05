@@ -85,7 +85,7 @@
                         </td>
                     </tr>
                 </table>
-                <a href="Principal.html">Regresar</a>
+                <a href="index.html">Regresar</a>
             </CENTER>
         </form> 
         <%        } else {%>

@@ -50,7 +50,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <a href="Principal.html">Pagina Principal</a>
+                <a href="index.html">Pagina Principal</a>
             </center>
         </form>
         
@@ -93,7 +93,7 @@
         %>
                         <center>
                             <h3>ACCESO DENEGADO - SOLO PERSONAL AUTORIZADO</h3>
-                            <a href="Principal.html">Página Principal</a>
+                            <a href="index.html">Página Principal</a>
                         </center>
         <%
                             break;

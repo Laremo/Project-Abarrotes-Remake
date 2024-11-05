@@ -227,7 +227,7 @@
                         </td>
                     </tr>
                 </table>
-                <a href="Principal.html">Pagina Principal</a>
+                <a href="index.html">Pagina Principal</a>
             </CENTER>
         </form> 
         <%        } else {%>

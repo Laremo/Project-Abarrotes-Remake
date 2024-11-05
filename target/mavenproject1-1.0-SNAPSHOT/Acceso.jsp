@@ -17,11 +17,11 @@
                 <h1>Acceso del cliente</h1>
                 <div id="menu">
                     <ul>
-                            <li><a href="Conocenos.jsp"  class = "normalMenu">Conocenos</a></li>
-                            <li><a href="Productos.jsp"  class = "normalMenu">Productos </a></li>
-                            <li><a href="Contacto.jsp"  class = "normalMenu">Contacto</a></li>
-                            <li><a href="Acceso.jsp"  class = "normalMenu">Ingresar</a></li>
-                            <li> <a href="registro.jsp"  class = "normalMenu">Registrate_Aquí</a></li>
+                        <li><a href="Conocenos.jsp"  class = "normalMenu">Conocenos</a></li>
+                        <li><a href="Productos.jsp"  class = "normalMenu">Productos </a></li>
+                        <li><a href="Contacto.jsp"  class = "normalMenu">Contacto</a></li>
+                        <li><a href="Acceso.jsp"  class = "normalMenu">Ingresar</a></li>
+                        <li> <a href="registro.jsp"  class = "normalMenu">Registrate_Aquí</a></li>
                     </ul>
                 </div>
                 <table border="1" width="30%" cellpadding="3">
@@ -46,7 +46,7 @@
 
                     </tbody>
                 </table>
-                <a href="Principal.html">Pagina Principal</a>
+                <a href="index.html">Pagina Principal</a>
             </center>
         </form>
         <% if (request.getParameter("enviar") != null) {%>
@@ -57,6 +57,7 @@
             boolean us = false;
             ClienteDAO empDAO = new ClienteDAO();
             List<Cliente> listaClientes = empDAO.obtenListaCliente();
+
             for (i = 0; i < listaClientes.size(); i++) {
                 uname.setNombre(request.getParameter("usuario"));
                 uname.setPassword(request.getParameter("contrasenia"));

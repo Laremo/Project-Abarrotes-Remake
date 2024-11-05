@@ -50,7 +50,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <a href="Principal.html">Pagina Principal</a>
+                <a href="index.html">Pagina Principal</a>
             </center>
         </form>
         <% if (request.getParameter("enviar") != null) {
@@ -82,7 +82,7 @@
     %>
     <center>
         <h3>ACCESO DENEGADO - SOLO PERSONAL AUTORIZADO</h3>
-        <a href="Principal.html">Pagina Principal</a>
+        <a href="index.html">Pagina Principal</a>
     </center>
     <%   break;
                 }
