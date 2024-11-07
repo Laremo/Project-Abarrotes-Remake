@@ -4,6 +4,7 @@
     Author     : Search
 --%>
 
+<%@page import="Mapeos.Carrito"%>
 <%@page import="Mapeos.Producto"%>
 <%@page import="Mapeos.Cliente"%> 
 <%@page import="java.util.List"%>
@@ -21,49 +22,48 @@
     </head>
     <body>
         <h1>Portal de información del producto</h1>
-                <div id="menu">
-                    <ul>
-                            <li><a href="Conocenos.jsp"  class = "normalMenu">Conocenos</a></li>
-                            <li><a href="Productos.jsp"  class = "normalMenu">Productos </a></li>
-                            <li><a href="Contacto.jsp"  class = "normalMenu">Contacto</a></li>
-                            <li><a href="Acceso.jsp"  class = "normalMenu">Ingresar</a></li>
-                            <li> <a href="registro.jsp"  class = "normalMenu">Registrate_Aquí</a></li>
-                    </ul>
-                </div>
+        <div id="menu">
+            <ul>
+                <li><a href="Conocenos.jsp" class="normalMenu">Conocenos</a></li>
+                <li><a href="Productos.jsp" class="normalMenu">Productos</a></li>
+                <li><a href="Contacto.jsp" class="normalMenu">Contacto</a></li>
+                <li><a href="Acceso.jsp" class="normalMenu">Ingresar</a></li>
+                <li><a href="registro.jsp" class="normalMenu">Registrate Aquí</a></li>
+            </ul>
+        </div>
 
-        <% ProductoDAO productoDAO = new ProductoDAO();
+        <%
+            ProductoDAO productoDAO = new ProductoDAO();
             List<Producto> listaproductos = productoDAO.obtenListaProducto();
 
             ClienteDAO clienteDAO = new ClienteDAO();
-            List<Cliente> listaclientes = clienteDAO.obtenListaCliente();
-            int valor = 0;
+            Cliente b = (Cliente) session.getAttribute("usuario");
+            b.setCarrito(new Carrito());
         %>
-        <form>
-            <CENTER>
-                <HR> 
-                <I>Selecciona en la columna final el producto que deseas comprar.</I>.
-                </HR>
-                <%  for (Cliente b : listaclientes) {
+        <form method="post">
+            <center>
+                <hr> 
+                <i>Selecciona en la columna final el producto que deseas comprar.</i>
+                </hr>
+                <%
+                %><i>---------- </i><tr><i>BIENVENID@</i>.<%= b.getNombre()%><i></tr> 
+                    <i>---------- </i><th>SU CARRITO</i>. <%= b.getCarrito()%></th>
+                <i>---------- </i><a href="Acceso.jsp">Cerrar Sesion</a> <%
                 %>
-                <I>----------  </I><tr><I>BIENBENID@</I>.<%= b.getNombre()%><I></tr> 
-                    <I>----------  </I><th>SU CARRITO</I>. <%= b.getCarrito()%></th>
-                <I>----------  </I><a href="Acceso.jsp">Cerrar Sesion</a>
-                    <% }
-                    %>
                 <table border="1">
                     <thead>
                         <tr>
                             <th>Nombre producto</th>
-                            <th>Presentacion</th>
+                            <th>Presentación</th>
                             <th>Caducidad</th>
                             <th>P. Unitario</th>
                             <th>Fecha</th>
                             <th>Marca</th>
+                            <th>Seleccionar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <%  for (Producto a : listaproductos) {
-                        %>
+                        <%  for (Producto a : listaproductos) {%>
                         <tr>
                             <td><%= a.getNombreProducto()%></td>
                             <td><%= a.getPresentacion()%></td>
@@ -71,58 +71,43 @@
                             <td><%= a.getPrecioUni()%></td>
                             <td><%= a.getFech()%></td>
                             <td><%= a.getMarca()%></td>
-                            <td><input type="checkbox" name="cbactores" value="<%=a.getIdProducto()%>"/></td>
+                            <td>
+                                <% if (a.getExistencias() > 0) {%>
+                                <input type="checkbox" name="cbactores" value="<%= a.getIdProducto()%>" />
+                                <%} else {
+                                %>
+                                ND
+                                <%
+                                    }
+                                %>
+                            </td>
                         </tr>
-                        <%
-                                valor = a.getIdProducto();
-                            }
-                        %>
+                        <% } %>
                     </tbody>
                 </table>
                 <input type="submit" value="Comprar" name="comprar" />
+
                 <%
-                    int compra = 0;
-                    if (request.getParameter("comprar") != null) {
-                %>
-                <table border="1">
-                    <jsp:useBean id="producto" scope="page" class="Mapeos.Producto" />
-                    <jsp:setProperty name="producto" property="*" />
-                    <%
+
+                    if (request.getParameter(
+                            "comprar") != null) {
                         String[] chbproductos = request.getParameterValues("cbactores");
-                        for (int i = 0; i <= chbproductos.length; i++) {
-                            if (i == chbproductos.length) {
-                                compra = listaclientes.get(i - 1).getCarrito() - listaproductos.get(i - 1).getExistencias().intValue();
-                                listaclientes.get(i - 1).setCarrito(compra);
-                                //listaclientes.remove(i - 1).getCarrito();
-                                out.println("*Compra efectuada*  " + "Carrito actual: " + compra);
-                                //var1.setExistencias(var1.getExistencias() - 1);
-                    %>
-                    <thead>
-                        <tr>
-                            <th>Nombre producto</th>
-                            <th>Presentacion</th>
-                            <th>Caducidad</th>
-                            <th>P. Unitario</th>
-                            <th>Marca</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><%= listaproductos.get(i - 1).getNombreProducto()%></td>
-                            <td><%= listaproductos.get(i - 1).getPresentacion()%></td>
-                            <td><%= listaproductos.get(i - 1).getCaducidad()%></td>
-                            <td><%= listaproductos.get(i - 1).getPrecioUni()%></td>
-                            <td><%= listaproductos.get(i - 1).getMarca()%></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a href="Ventas.jsp">Realizar otra compra.</a>
-            </CENTER>
-        </form>
-        <%
+                        if (chbproductos != null) {
+                            for (String idStr : chbproductos) {
+                                int id = Integer.parseInt(idStr);
+                                Producto producto = productoDAO.obtenProducto(id);
+                                if (producto != null) {
+                                    int compra = producto.getExistencias() - 1;  // Reduces existence by 1, adjust as needed
+                                    producto.setExistencias(compra);
+                                    productoDAO.actualizaProducto(producto);  // Save changes to the database
+
+                                    out.println("*Compra efectuada*  " + "Producto: " + producto.getNombreProducto() + ", Carrito actual: " + compra);
+                                }
+                            }
+                        }
                     }
-                }
-            }
-        %>
+                %>
+            </center>
+        </form>
     </body>
 </html>

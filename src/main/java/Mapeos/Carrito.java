@@ -1,5 +1,6 @@
 package Mapeos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Carrito implements java.io.Serializable {
@@ -9,6 +10,7 @@ public class Carrito implements java.io.Serializable {
     private List<Producto> productos;  // Lista de productos en el carrito
 
     public Carrito() {
+        this.productos = new ArrayList<>();
     }
 
     public Carrito(Cliente cliente, List<Producto> productos) {
