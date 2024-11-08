@@ -19,7 +19,10 @@ public class ProductoDAO {
 
       private Session sesion;
     private Transaction tx;
-
+    private int de = 1;
+    public ProductoDAO(){
+        de = 2;
+    }
     public int guardaProducto(Mapeos.Producto producto) throws HibernateException {
         int id = -1;
 

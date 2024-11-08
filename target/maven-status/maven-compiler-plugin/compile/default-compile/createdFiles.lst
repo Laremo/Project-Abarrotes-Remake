@@ -1,10 +1,13 @@
+Beans/SaveCartServlet$1.class
 Mapeos/Proveedor.class
 Mapeos/Inventario.class
 Mapeos/Empleado.class
 Beans/EmpleadoDAO.class
+Hibernate/SaveCartServ$1.class
 Mapeos/Pedido.class
 Beans/Reflection.class
 Beans/ProductoDAO.class
+Beans/SaveCartServlet.class
 Hibernate/HibernateUtil.class
 Mapeos/Estado.class
 Beans/servletAjax.class
@@ -15,3 +18,4 @@ Mapeos/Carrito.class
 Beans/UsuarioDAO.class
 Beans/ClienteDAO.class
 Mapeos/Producto.class
+Hibernate/SaveCartServ.class
