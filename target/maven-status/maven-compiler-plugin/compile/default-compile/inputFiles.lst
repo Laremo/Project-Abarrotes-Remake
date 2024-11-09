@@ -1,6 +1,8 @@
 /home/laremo/Documents/git/Project-Abarrotes-Remake/src/main/java/Mapeos/Empleado.java
+/home/laremo/Documents/git/Project-Abarrotes-Remake/src/main/java/Beans/CompraDAO.java
 /home/laremo/Documents/git/Project-Abarrotes-Remake/src/main/java/Beans/EmpleadoDAO.java
 /home/laremo/Documents/git/Project-Abarrotes-Remake/src/main/java/Hibernate/SaveCartServ.java
+/home/laremo/Documents/git/Project-Abarrotes-Remake/src/main/java/Mapeos/Compra.java
 /home/laremo/Documents/git/Project-Abarrotes-Remake/src/main/java/Hibernate/HibernateUtil.java
 /home/laremo/Documents/git/Project-Abarrotes-Remake/src/main/java/Mapeos/Empresa.java
 /home/laremo/Documents/git/Project-Abarrotes-Remake/src/main/java/Mapeos/Inventario.java

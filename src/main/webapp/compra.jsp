@@ -4,6 +4,8 @@
     Author     : USUARIO
 --%>
 
+<%@page import="Beans.CompraDAO"%>
+<%@page import="Mapeos.Compra"%>
 <%@page import="Mapeos.Cliente"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.ArrayList"%>
@@ -24,8 +26,10 @@
         <h1>Compras!</h1>
         <%
             ProductoDAO productoDAO = new ProductoDAO();
+            CompraDAO compraDAO = new CompraDAO();  // Asegúrate de haber importado la clase CompraDAO
             Cliente b = (Cliente) session.getAttribute("usuario");
-// Obtener el parámetro 'comprar' que contiene los datos en formato 'id,cantidad,id,cantidad...'
+
+            // Obtener el parámetro 'comprar' que contiene los datos en formato 'id,cantidad,id,cantidad...'
             String comprarParam = request.getParameter("comprar");
 
             if (comprarParam != null && !comprarParam.isEmpty()) {
@@ -40,7 +44,7 @@
                     products.add(productData);
                 }
 
-                // Actualizar la base de datos
+                // Actualizar la base de datos y registrar la compra
                 for (List<Integer> productData : products) {
                     int id = productData.get(0);
                     int quantity = productData.get(1);
@@ -49,6 +53,14 @@
                         int newExistence = producto.getExistencias() - quantity;
                         producto.setExistencias(newExistence);
                         productoDAO.actualizaProducto(producto);
+
+                        // Crear y guardar la compra
+                        Compra compra = new Compra();
+                        compra.setIdCliente(b.getIdCliente());  // Asumiendo que el objeto Cliente tiene un método getId()
+                        compra.setIdProducto(id);
+                        compra.setCantidad(quantity);
+                        compra.setFecha(new java.sql.Timestamp(System.currentTimeMillis()));
+                        compraDAO.guardaCompra(compra);
                     }
                 }
 
@@ -61,6 +73,7 @@
                 response.getWriter().write("{\"status\": \"error\"}");
             }
         %>
+
 
     </body>
 </html>
