@@ -17,7 +17,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css.css" title="style">
         <title>producto</title>
-
     </head>
     <body>
         <h1>Portal de información del producto</h1>
@@ -48,7 +47,7 @@
         <form method="post">
             <center>
                 <hr>
-                <i>Oprime el botón "Aadir" del producto que deseas comprar.</i>
+                <i>Oprime el botón "Añadir" del producto que deseas comprar.</i>
                 </hr>
                 <i>---------- </i><tr><i>BIENVENID@</i>.<%= b.getNombre()%><i></tr>
                     <i>---------- </i><a href="Acceso.jsp">Cerrar Sesion</a>
@@ -59,6 +58,7 @@
                                 <th>Presentación</th>
                                 <th>Caducidad</th>
                                 <th>P. Unitario</th>
+                                <th>Existencias</th>
                                 <th>Fecha</th>
                                 <th>Marca</th>
                                 <th>Seleccionar</th>
@@ -71,99 +71,155 @@
                                 <td><%= a.getPresentacion()%></td>
                                 <td><%= a.getCaducidad()%></td>
                                 <td><%= a.getPrecioUni()%></td>
+                                <td><%= a.getExistencias()%></td>
                                 <td><%= a.getFech()%></td>
                                 <td><%= a.getMarca()%></td>
                                 <td>
                                     <% if (a.getExistencias() > 0) {%>
-                                    <button type="button" onclick="addToCart(<%= a.getIdProducto()%>, '<%= a.getNombreProducto()%>', <%= a.getExistencias()%>)">Añadir</button>
+                                    <input id="item-<%=a.getIdProducto()%>" type="number" min="0" max="<%=a.getExistencias()%>" value="1"/>
+                                    <button type="button" onclick="addToCart(<%= a.getIdProducto()%>, '<%= a.getNombreProducto()%>', <%= a.getPrecioUni()%>, <%= a.getExistencias()%>)">Añadir</button>
                                     <% } else { %>
                                     ND
                                     <% } %>
                                 </td>
                             </tr>
-                            <% } %>
+                            <% }%>
                         </tbody>
                     </table>
-                    <button type="button" onclick="saveCart()">Comprar</button>
-                    <div id="cartItems">
-                        <h2>Productos en el carrito:</h2>
-                        <ul id="cartList"></ul>
+                    <div class="cart"> 
+                        <div id="cartItems">
+                            <h4>Productos en el carrito:</h4>
+                            <ul id="cartList"></ul>
+                            <div id="totalCost">Total de todos los productos: 0</div>
+                        </div>
+                        <button type="button" onclick="saveCart()">Comprar</button>
                     </div>
             </center>
         </form>
 
         <script>
-            // Load existing cart from sessionStorage
             const existingCart = JSON.parse(sessionStorage.getItem("cart"));
             const cart = existingCart ? existingCart : {};
 
-            // Function to display the existing cart items on page load
             if (existingCart) {
                 const cartList = document.getElementById('cartList');
                 Object.entries(existingCart).forEach(([productId, productData]) => {
-                    let listItem = document.querySelector("li[data-product-id='" + productId + "']");
-
-                    // If the list item does not exist, create a new one and append it to the cart list
-                    if (!listItem) {
-                        listItem = document.createElement('li');
-                        listItem.setAttribute('data-product-id', productId);
-                        cartList.appendChild(listItem);
-                    }
-
-                    // Update the text content of the list item with the product name and quantity
-                    listItem.textContent = productData.name + ": " + productData.quantity;
+                    displayCartItem(productId, productData.name, productData.quantity, productData.price);
                 });
+                calculateTotals();
             }
 
-            // Function to add products to the cart
-            function addToCart(productId, productName, productStock) {
-                console.log(productId, productName, productStock);
-                if (!cart[productId]) {
-                    cart[productId] = {name: productName, quantity: 0};
+            function addToCart(productId, productName, productPrice, productStock) {
+                const inputElement = document.getElementById('item-' + productId);
+                const quantityToAdd = parseInt(inputElement.value);
+
+                // Validate the quantity
+                if (isNaN(quantityToAdd) || quantityToAdd <= 0) {
+                    alert('Por favor, ingrese una cantidad válida.');
+                    return;
                 }
-                if (cart[productId].quantity < productStock) {
-                    // Increment the quantity in the cart
-                    cart[productId].quantity += 1;
 
-                    // Get the cart list element
-                    const cartList = document.getElementById('cartList');
+                // Check if we exceed stock
+                if (!cart[productId]) {
+                    cart[productId] = {name: productName, price: productPrice, quantity: 0};
+                }
+                const newQuantity = cart[productId].quantity + quantityToAdd;
 
-                    // Check if the list item for this product already exists
-                    let listItem = document.querySelector("li[data-product-id='" + productId + "']");
+                if (newQuantity > productStock) {
+                    alert('No hay suficiente stock para esta cantidad!');
+                    return;
+                }
 
-                    // If the list item does not exist, create a new one and append it to the cart list
-                    if (!listItem) {
-                        listItem = document.createElement('li');
-                        listItem.setAttribute('data-product-id', productId);
-                        cartList.appendChild(listItem);
+                // Update the cart with the new quantity
+                cart[productId].quantity = newQuantity;
+
+                // Display the updated cart item
+                displayCartItem(productId, productName, cart[productId].quantity, productPrice);
+
+                // Update sessionStorage and totals
+                sessionStorage.setItem("cart", JSON.stringify(cart));
+                calculateTotals();
+            }
+
+            function removeFromCart(productId) {
+                if (cart[productId]) {
+                    cart[productId].quantity -= 1;
+
+                    // If quantity is zero, remove the item from the cart
+                    if (cart[productId].quantity <= 0) {
+                        delete cart[productId];
+                        const listItem = document.querySelector("li[data-product-id='" + productId + "']");
+                        if (listItem) {
+                            listItem.remove();
+                        }
+                    } else {
+                        // Update the display with the new quantity
+                        displayCartItem(productId, cart[productId].name, cart[productId].quantity, cart[productId].price);
                     }
 
-                    // Update the text content of the list item with the product name and quantity
-                    listItem.textContent = productName + ": " + cart[productId].quantity;
-                } else {
-                    // Alert the user if they try to add more than the available stock
-                    alert('No hay más existencias de este producto!');
+                    // Update sessionStorage and totals
+                    sessionStorage.setItem("cart", JSON.stringify(cart));
+                    calculateTotals();
+                }
+            }
+
+
+            function displayCartItem(productId, productName, quantity, price) {
+                const cartList = document.getElementById('cartList');
+                let listItem = document.querySelector("li[data-product-id='" + productId + "']");
+
+                if (!listItem) {
+                    listItem = document.createElement('li');
+                    listItem.setAttribute('data-product-id', productId);
+
+                    // Create a span for the product details
+                    const productText = document.createElement('span');
+                    productText.className = 'productText';
+                    listItem.appendChild(productText);
+
+                    // Add a remove button
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = '-';
+                    removeButton.className = 'rm-btn';
+                    removeButton.onclick = () => removeFromCart(productId);
+                    listItem.appendChild(removeButton);
+
+                    cartList.appendChild(listItem);
                 }
 
+                // Update the text for the product details
+                const total = price * quantity;
+                const productText = listItem.querySelector('.productText');
+                productText.textContent = productName + ': ' + quantity + ' (Total: ' + total + ')';
+            }
 
-                sessionStorage.setItem("cart", JSON.stringify(cart));
+
+            function calculateTotals() {
+                let grandTotal = 0;
+                Object.values(cart).forEach(product => {
+                    grandTotal += product.price * product.quantity;
+                });
+                document.getElementById("totalCost").textContent = 'Total de todos los productos: ' + grandTotal;
             }
 
             async function saveCart() {
                 if (Object.entries(cart).length === 0) {
                     return;
                 }
-                const comprarData = Object.entries(cart).map(([id, product]) => [parseInt(id), product.quantity]);
-                const encodedData = comprarData;
-                const url = "compra.jsp?comprar=" + encodedData;
+                const comprarData = Object.entries(cart).map(([id, product]) => '' + parseInt(id) + ',' + product.quantity);
+                let tosend = '';
+                console.log(comprarData)
+                for (let i = 0; i < comprarData.length; i++) {
+                    tosend += comprarData[i] + ",";
+                }
+                const url = "compra.jsp?comprar=" + tosend;
                 console.log(url);
+
                 try {
                     const response = await fetch(url, {method: 'GET'});
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    //const json = await response.json();
-                    //console.log('json decoded', json);
                     alert("Compra Registrada!");
                     sessionStorage.removeItem("cart");
                     location.reload();
@@ -173,36 +229,65 @@
                 }
             }
         </script>
-
-
-        <%
-            if (request.getParameter("comprar") != null) {
-                String jsonData = request.getParameter("comprar");
-                Gson gson = new Gson(); // Convert JSON string to your expected type 
-                Map<String, List<List<Integer>>> dataMap = gson.fromJson(jsonData, new TypeToken<Map<String, List<List<Integer>>>>() {
-                }.getType());
-                List<List<Integer>> products = dataMap.get("cart");
-                out.println(products.size());
-                for (List<Integer> productData : products) {
-                    int id = productData.get(0);
-                    int quantity = productData.get(1);
-                    Producto producto = productoDAO.obtenProducto(id);
-                    if (producto != null) {
-                        int newExistence = producto.getExistencias() - quantity;
-                        producto.setExistencias(newExistence);
-                        productoDAO.actualizaProducto(producto); // Save changes to the database 
-                    }
-                }
-                response.setContentType("application/json");
-                response.getWriter().write("{\"status\":\"success\"}");
-            } // Send a response 
-
-
-        %>
     </body>
     <style>
-        li{
+        li {
             list-style: none;
+        }
+
+        .cart{
+            position: absolute;
+            top: 180px;
+            left: calc(100vw - 425px);
+            width: 420px;
+            border: 1px solid #1a1a1a;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        h4{
+            margin: 0px;
+        }
+
+        #cartList {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            box-sizing: border-box;
+            margin: 0px;
+            padding: 12px 0px;
+        }
+
+        #cartList li{
+            text-align: left;
+            width: 100%;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            border: 1px solid #e1e1e1;
+            padding: 0px 8px
+        }
+
+        .rm-btn{
+            width: 24px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: #CC1A1A;
+            color: white;
+            border: #BB1111 solid 1px;
+            border-radius: 4px;
+            cursor:pointer;
+            padding: 0px 4px;
+        }
+
+        .rm-btn:hover{
+            background: #AA1414;
+            border: #BB0000 solid 1px;
+
         }
     </style>
 </html>
