@@ -74,6 +74,28 @@ public class CompraDAO {
         return listaCompras;
     }
 
+    public List<Compra> compraPorCliente(int cliente) throws HibernateException {
+        List<Compra> listaPorCliente = null;
+        try {
+            iniciaOperacion();
+
+            // Use parameterized query to prevent SQL injection
+            listaPorCliente = sesion.createQuery("from Compra where id_cliente = :cliente", Compra.class)
+                    .setParameter("cliente", cliente)
+                    .list();
+
+            tx.commit();
+        } catch (HibernateException ex) {
+            manejaExcepcion(ex);
+            throw ex;
+        } finally {
+            if (sesion != null) {
+                sesion.close();
+            }
+        }
+        return listaPorCliente;
+    }
+
     public int actualizaCompra(Compra compra) throws HibernateException {
         try {
             iniciaOperacion();
