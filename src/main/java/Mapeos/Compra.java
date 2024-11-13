@@ -9,10 +9,19 @@ public class Compra implements java.io.Serializable {
     private int idProducto;
     private int cantidad;
     private Timestamp fecha;
+    Producto producto;
 
     // Getters and Setters
     public int getId() {
         return id;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Producto getProducto() {
+        return this.producto;
     }
 
     public void setId(int id) {

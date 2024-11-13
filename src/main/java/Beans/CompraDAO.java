@@ -2,22 +2,24 @@ package Beans;
 
 import Hibernate.HibernateUtil;
 import Mapeos.Compra;
+import Mapeos.Producto;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class CompraDAO {
-
+    
     private Session sesion;
     private Transaction tx;
-
+    
     public CompraDAO() {
     }
-
+    
     public int guardaCompra(Compra compra) throws HibernateException {
         int id = -1;
-
+        
         try {
             iniciaOperacion();
             id = (Integer) sesion.save(compra);
@@ -33,7 +35,7 @@ public class CompraDAO {
         }
         return id;
     }
-
+    
     public void eliminaCompra(int compraNo) {
         try {
             iniciaOperacion();
@@ -46,7 +48,7 @@ public class CompraDAO {
             sesion.close();
         }
     }
-
+    
     public Compra obtenCompra(int noCompra) throws HibernateException {
         Compra compra = null;
         try {
@@ -57,7 +59,7 @@ public class CompraDAO {
         }
         return compra;
     }
-
+    
     public List<Compra> obtenListaCompra() throws HibernateException {
         List<Compra> listaCompras = null;
         try {
@@ -73,17 +75,24 @@ public class CompraDAO {
         }
         return listaCompras;
     }
-
+    
     public List<Compra> compraPorCliente(int cliente) throws HibernateException {
         List<Compra> listaPorCliente = null;
+        List<Compra> delCliente = new ArrayList<Compra>();
+        
         try {
             iniciaOperacion();
 
             // Use parameterized query to prevent SQL injection
-            listaPorCliente = sesion.createQuery("from Compra where id_cliente = :cliente", Compra.class)
-                    .setParameter("cliente", cliente)
-                    .list();
-
+            listaPorCliente = sesion.createQuery("from Compra").list();
+            ProductoDAO productoDao = new ProductoDAO();
+            for (Compra compra : listaPorCliente) {
+                if (compra.getIdCliente() == cliente) {
+                    Producto prod = productoDao.obtenProducto(compra.getIdProducto());
+                    compra.setProducto(prod);
+                    delCliente.add(compra);
+                }
+            }
             tx.commit();
         } catch (HibernateException ex) {
             manejaExcepcion(ex);
@@ -93,9 +102,9 @@ public class CompraDAO {
                 sesion.close();
             }
         }
-        return listaPorCliente;
+        return delCliente;
     }
-
+    
     public int actualizaCompra(Compra compra) throws HibernateException {
         try {
             iniciaOperacion();
@@ -109,7 +118,7 @@ public class CompraDAO {
         }
         return 0;
     }
-
+    
     private void iniciaOperacion() {
         try {
             sesion = HibernateUtil.getSessionFactory().openSession();
@@ -119,7 +128,7 @@ public class CompraDAO {
             e.printStackTrace();
         }
     }
-
+    
     private void manejaExcepcion(HibernateException he) throws HibernateException {
         tx.rollback();
         throw new HibernateException("Ocurrió un error en la capa de acceso a datos", he);
