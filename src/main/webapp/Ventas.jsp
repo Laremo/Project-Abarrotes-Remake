@@ -76,7 +76,7 @@
                                 <td><%= a.getMarca()%></td>
                                 <td>
                                     <% if (a.getExistencias() > 0) {%>
-                                    <input id="item-<%=a.getIdProducto()%>" type="number" min="0" max="<%=a.getExistencias()%>" value="1"/>
+                                    <input id="item-<%=a.getIdProducto()%>" type="number" min="0" max="<%=a.getExistencias()%>" value="0"/>
                                     <button type="button" onclick="addToCart(<%= a.getIdProducto()%>, '<%= a.getNombreProducto()%>', <%= a.getPrecioUni()%>, <%= a.getExistencias()%>)">Añadir</button>
                                     <% } else { %>
                                     ND
