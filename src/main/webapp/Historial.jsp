@@ -37,7 +37,7 @@
             CompraDAO compraDAO = new CompraDAO();
             Cliente b = (Cliente) session.getAttribute("usuario");
             int idCliente = b.getIdCliente();
-            List<Compra> listaCompras = compraDAO.compraPorCliente(idCliente);
+            List<List> listaCompras = compraDAO.compraPorCliente(idCliente);
 
         %>
         <form method="post">
@@ -47,36 +47,50 @@
                 </hr>
                 <i>---------- </i><tr><i>BIENVENID@</i>.<%= b.getNombre()%><i></tr>
                     <i>---------- </i><a href="Acceso.jsp">Cerrar Sesion</a>
-                    <table border="1">
-                        <thead>
-                            <tr>
-                                <th>Nombre producto</th>
-                                <th>Marca</th>
-                                <th>Presentación</th>
-                                <th>P. Unitario</th>
-                                <th>Cantidad</th>
-                                <th>Total</th>
-                                <th>Fecha de Compra</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% for (Compra c : listaCompras) {%>
-                            <tr>
-                                <td><%= c.getProducto().getNombreProducto()%></td>
-                                <td><%= c.getProducto().getMarca()%></td>
-                                <td><%= c.getProducto().getPresentacion()%></td>
-                                <td><%= c.getProducto().getPrecioUni()%></td>
-                                <td><%= c.getCantidad()%></td>
-                                <td><%= c.getCantidad() * c.getProducto().getPrecioUni()%></td>
-                                <td><%= c.getFecha()%></td>
-                                
-                            </tr>
-                            <% }%>
-                        </tbody>
-                    </table>
-                   
+                    <div id="compras">
+                        <%
+                            int count = 1;
+                            for (List<Compra> compras : listaCompras) {
+                        %>
+                        <div class="compra-section">
+                            <button type="button" class="collapsible">Compra <%= count%></button>
+                            <div class="compra-content">
+                                <table border="1">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre producto</th>
+                                            <th>Marca</th>
+                                            <th>Presentación</th>
+                                            <th>P. Unitario</th>
+                                            <th>Cantidad</th>
+                                            <th>Total</th>
+                                            <th>Fecha de Compra</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (Compra c : compras) {%>
+                                        <tr>
+                                            <td><%= c.getProducto().getNombreProducto()%></td>
+                                            <td><%= c.getProducto().getMarca()%></td>
+                                            <td><%= c.getProducto().getPresentacion()%></td>
+                                            <td><%= c.getProducto().getPrecioUni()%></td>
+                                            <td><%= c.getCantidad()%></td>
+                                            <td><%= c.getCantidad() * c.getProducto().getPrecioUni()%></td>
+                                            <td><%= c.getFecha()%></td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <%
+                                count++;
+                            }
+                        %>
+                    </div>
             </center>
         </form>
+
 
         <script>
             const existingCart = JSON.parse(sessionStorage.getItem("cart"));
@@ -209,7 +223,46 @@
                     console.error('Error: (on fetch!)', error);
                 }
             }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const collapsibles = document.querySelectorAll(".collapsible");
+                collapsibles.forEach(button => {
+                    button.addEventListener("click", function () {
+                        this.classList.toggle("active");
+                        const content = this.nextElementSibling;
+                        content.style.display = content.style.display === "block" ? "none" : "block";
+                    });
+                });
+            });
         </script>
+        <style>
+            .collapsible {
+                background-color: #f9f9f9;
+                color: #333;
+                cursor: pointer;
+                padding: 10px;
+                border: 1px solid #ddd;
+                text-align: left;
+                outline: none;
+                font-size: 18px;
+                width: 100%;
+            }
+
+            .active, .collapsible:hover {
+                background-color: #ccc;
+            }
+
+            .compra-content {
+                padding: 10px;
+                display: none;
+                overflow: hidden;
+                border: 1px solid #ddd;
+            }
+
+            .compra-content table {
+                width: 100%;
+            }
+        </style>
     </body>
 
 </html>

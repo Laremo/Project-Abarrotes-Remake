@@ -4,6 +4,7 @@
     Author     : USUARIO
 --%>
 
+<%@page import="Beans.ClienteDAO"%>
 <%@page import="Beans.CompraDAO"%>
 <%@page import="Mapeos.Compra"%>
 <%@page import="Mapeos.Cliente"%>
@@ -28,14 +29,15 @@
             ProductoDAO productoDAO = new ProductoDAO();
             CompraDAO compraDAO = new CompraDAO();  // Asegúrate de haber importado la clase CompraDAO
             Cliente b = (Cliente) session.getAttribute("usuario");
-
+            ClienteDAO clienteDAO = new ClienteDAO();
             // Obtener el parámetro 'comprar' que contiene los datos en formato 'id,cantidad,id,cantidad...'
             String comprarParam = request.getParameter("comprar");
 
             if (comprarParam != null && !comprarParam.isEmpty()) {
                 String[] data = comprarParam.split(",");
                 List<List<Integer>> products = new ArrayList<>();
-
+                
+                int numero = b.addCompra();
                 // Procesar los datos en pares de id y cantidad
                 for (int i = 0; i < data.length; i += 2) {
                     int id = Integer.parseInt(data[i]);
@@ -58,12 +60,15 @@
                         Compra compra = new Compra();
                         compra.setIdCliente(b.getIdCliente());  // Asumiendo que el objeto Cliente tiene un método getId()
                         compra.setIdProducto(id);
+                        compra.setNumero(numero);
                         compra.setCantidad(quantity);
                         compra.setFecha(new java.sql.Timestamp(System.currentTimeMillis()));
                         compraDAO.guardaCompra(compra);
                     }
                 }
-
+                
+                clienteDAO.actualizaCliente(b);
+                
                 // Responder con un JSON de éxito
                 response.setContentType("application/json");
                 response.getWriter().write("{\"status\": \"ok\"}");

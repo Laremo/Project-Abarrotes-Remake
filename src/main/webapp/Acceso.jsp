@@ -68,7 +68,7 @@
                     // Iniciar sesión
                     session.setAttribute("usuario", cliente);
                     int idCliente = cliente.getIdCliente();
-                    List<Compra> compras = new ArrayList<Compra>();
+                    List<List> compras = new ArrayList<List>();
                     CompraDAO compraDAO = new CompraDAO();
                     compras = compraDAO.compraPorCliente(cliente.getIdCliente());
 

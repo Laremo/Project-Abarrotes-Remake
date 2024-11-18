@@ -19,5 +19,8 @@
         <property name="fecha" type="timestamp">
             <column name="fecha" />
         </property>
+        <property name="numero" type="int">
+            <column name="numero"  />
+        </property>
     </class>
 </hibernate-mapping>

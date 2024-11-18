@@ -37,5 +37,8 @@
         </property>
         <one-to-one name="paquete" class="Mapeos.Paquete"></one-to-one>
         <one-to-one name="pedido" class="Mapeos.Pedido"></one-to-one>
+        <property name="compras" type="int">
+            <column name="compras"  />
+        </property>
     </class>
 </hibernate-mapping>

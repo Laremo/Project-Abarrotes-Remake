@@ -8,6 +8,7 @@ public class Compra implements java.io.Serializable {
     private int idCliente;
     private int idProducto;
     private int cantidad;
+    private int numero;
     private Timestamp fecha;
     Producto producto;
 
@@ -16,6 +17,14 @@ public class Compra implements java.io.Serializable {
         return id;
     }
 
+    public int getNumero(){
+        return this.numero;
+    }
+    
+    public void setNumero(int numero){
+        this.numero = numero;
+    }
+    
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
